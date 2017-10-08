@@ -130,6 +130,7 @@
             this.MinimumSize = new System.Drawing.Size(150, 150);
             this.Name = "Form1";
             this.Text = "HelloWorld";
+            //this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             this.ResumeLayout(false);
 
         }
