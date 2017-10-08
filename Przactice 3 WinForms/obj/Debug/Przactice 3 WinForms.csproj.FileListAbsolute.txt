@@ -1,0 +1,9 @@
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\bin\Debug\Przactice 3 WinForms.exe.config
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\bin\Debug\Przactice 3 WinForms.exe
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\bin\Debug\Przactice 3 WinForms.pdb
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice 3 WinForms.csprojResolveAssemblyReference.cache
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice_3_WinForms.Form1.resources
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice_3_WinForms.Properties.Resources.resources
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice 3 WinForms.csproj.GenerateResource.Cache
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice 3 WinForms.exe
+c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice 3 WinForms.pdb
