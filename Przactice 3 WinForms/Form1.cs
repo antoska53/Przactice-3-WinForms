@@ -13,18 +13,44 @@ namespace Przactice_3_WinForms
     public partial class Form1 : Form
     {
         List<Point> listPoints = new List<Point>(); // массив точек
+        Random rand = new Random();
 
         bool bButtonOn = false; // флаг кнопки 1
+        bool flagXRight = false;
         enum eLineType { None, Curved, Polygone, Beizers, Filled }
         eLineType LineType = eLineType.None;
+        private Timer moveTimer = new Timer();
+      
         public Form1()
         {
             InitializeComponent();
             Paint += Form1_Paint;
             MouseClick += Form1_MouseClick1;
+            moveTimer.Interval = 30;
+            moveTimer.Tick += MoveTimer_Tick;
             
         }
-      
+
+        private void MoveTimer_Tick(object sender, EventArgs e)
+        {
+           // bool flagXRight = false;
+            bool flagXLeft = false;
+            bool flagY = false;
+            for(int i = 0; i < listPoints.Count(); i++)
+            {
+                //listPoints[i].Y++;//почему не работает напрямую через список?
+                Point p1 = listPoints[i];
+                if (p1.X == 282 || p1.X == 50) { flagXRight = !flagXRight; }
+                if (flagXRight) { p1.X--; }
+                else { p1.X++; }
+                //if (!flagXRight) p1.X++;
+                
+                //p1.Y++;
+                listPoints[i] = p1;
+            }
+            Refresh();
+        }
+
         private void Form1_MouseClick1(object sender, MouseEventArgs e)
         {
            
@@ -45,8 +71,8 @@ namespace Przactice_3_WinForms
         {
            
                 var d = e.Graphics; 
-                Brush br = Brushes.Black; //кисть
-            Pen pen1 = new Pen(Color.Aqua, width:2);
+                Brush br = new SolidBrush(Data.colDot); //кисть
+                Pen pen1 = new Pen(Data.colLine, width:Data.valueLine);
            
             
 
@@ -56,7 +82,7 @@ namespace Przactice_3_WinForms
                 int i = 0;
                 foreach (Point pnt in listPoints)
                 {
-                    d.FillEllipse(br, pnt.X - 2, pnt.Y - 2, 4, 4); //рисуем точки
+                    d.FillEllipse(br, pnt.X - Data.valueDot/2, pnt.Y - Data.valueDot / 2, Data.valueDot, Data.valueDot); //рисуем точки
                     arrPoint[i] = pnt;//перезапись List в массив
                     i++;
                 }
@@ -107,7 +133,8 @@ namespace Przactice_3_WinForms
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            Form2 secondForm = new Form2();
+            secondForm.Show();
         }
 
         private void button3_Click(object sender, EventArgs e) //кривая
@@ -140,7 +167,7 @@ namespace Przactice_3_WinForms
 
         private void button7_Click(object sender, EventArgs e)
         {
-
+            moveTimer.Start();
         }
 
         private void button8_Click(object sender, EventArgs e)//очистить

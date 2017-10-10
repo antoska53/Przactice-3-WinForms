@@ -7,3 +7,4 @@ c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przact
 c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice 3 WinForms.csproj.GenerateResource.Cache
 c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice 3 WinForms.exe
 c:\users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice 3 WinForms.pdb
+C:\Users\tosha\documents\visual studio 2015\Projects\Przactice 3 WinForms\Przactice 3 WinForms\obj\Debug\Przactice_3_WinForms.Form2.resources
