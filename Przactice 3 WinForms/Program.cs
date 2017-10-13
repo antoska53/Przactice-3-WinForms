@@ -13,6 +13,32 @@ namespace Przactice_3_WinForms
         private static int lineSiz = 2;
         private static Color dotColor = Color.Black;
         private static Color lineColor = Color.Black;
+        private static bool randMove = true;
+        private static int numericUP1 = 0;
+        private static int numericUP2 = 0;
+
+        public static int nemricValue1
+        {
+            get { return numericUP1; }
+            set
+            {
+                numericUP1 = value;
+            }
+        }
+        public static int nemricValue2
+        {
+            get { return numericUP2; }
+            set
+            {
+                numericUP2 = value;
+            }
+        }
+
+        public static bool moveDot
+        {
+            get { return randMove; }
+            set { randMove = value; }
+        }
 
         public static int valueDot
         {
