@@ -28,7 +28,9 @@ namespace Przactice_3_WinForms
         enum eLineType { None, Curved, Polygone, Beizers, Filled }
         eLineType LineType = eLineType.None;
         private Timer moveTimer = new Timer();
-      
+
+     
+
         public Form1()
         {
             InitializeComponent();
@@ -40,7 +42,125 @@ namespace Przactice_3_WinForms
             MouseDown += Form1_MouseDown;
             MouseMove += Form1_MouseMove;
             MouseUp += Form1_MouseUp;
+            KeyPreview = true; //для предварительной обработки событий в форме, а не в элементах управления(активные кнопки формы)
+            KeyDown += Form1_KeyDown;
+
             
+            
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            bool flagXLeft = false;
+            bool flagXRight = false;
+            bool flagYUp = false;
+            bool flagYDown = false;
+            foreach (var item in listPoints) // проверяем достигли ли края
+            {
+                if (item.X == 283) { flagXRight = true; }
+                if (item.Y == 0) { flagYUp = true; }
+                if (item.X == 90) { flagXLeft = true; }
+                if (item.Y == 260) { flagYDown = true; }
+            }
+            
+            switch (keyData)
+            {
+                case (Keys.Up):
+                    if (flagYUp == false)
+                    {
+                        for (int i = 0; i < listPoints.Count(); i++)
+                        {
+                            Point p = listPoints[i];
+                            p.Y--;
+                            listPoints[i] = p;
+                        }
+                    }
+                    Refresh();
+                    return true;// чтобы не прыгал фокус по клавишам в приложении
+                case (Keys.Down):
+                    if (flagYDown == false)
+                    {
+                        for (int i = 0; i < listPoints.Count(); i++)
+                        {
+                            Point p = listPoints[i];
+                            p.Y++;
+                            listPoints[i] = p;
+                        }
+                    }
+                    Refresh();
+                    return true;// чтобы не прыгал фокус по клавишам в приложении
+                case (Keys.Left):
+                    if (flagXLeft == false)
+                    {
+                        for (int i = 0; i < listPoints.Count(); i++)
+                        {
+                            Point p = listPoints[i];
+                            p.X--;
+                            listPoints[i] = p;
+                        }
+                    }
+                    Refresh();
+                    return true;// чтобы не прыгал фокус по клавишам в приложении
+                case (Keys.Right):
+                    if (flagXRight == false)
+                    {
+                        for (int i = 0; i < listPoints.Count(); i++)
+                        {
+                            Point p = listPoints[i];
+                            p.X++;
+                            listPoints[i] = p;
+                        }
+                    }
+                    Refresh();
+                    return true;// чтобы не прыгал фокус по клавишам в приложении
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case(Keys.Space) :
+                    bButtonOn = false; //отключаем точки
+                    moveTimer.Enabled = !moveTimer.Enabled;
+                    if (moveTimer.Enabled)
+                    {
+                        flagsX = new bool[listPoints.Count()];
+                        flagsY = new bool[listPoints.Count()];
+                        arrRandX = new int[listPoints.Count()];
+                        arrRandY = new int[listPoints.Count()];
+                        for (int i = 0; i < listPoints.Count(); i++)
+                        {
+                            arrRandX[i] = rand.Next(-5, 5);
+                            arrRandY[i] = rand.Next(-5, 5);
+                            flagsX[i] = true;
+                            flagsY[i] = true;
+                        }
+                    }
+                    break;
+                case (Keys.Add):
+                    Data.speedDot++;
+                    break;
+                case (Keys.Subtract):
+                    Data.speedDot--;
+                    break;
+                case (Keys.Escape):
+                    listPoints.Clear();
+                    Refresh();
+                    break;
+                //case (Keys.Up):
+                    
+                //    for(int i = 0; i < listPoints.Count(); i++)
+                //    {
+                //        Point p = listPoints[i];
+                //        p.X++;
+                //        p.Y++;
+                //        listPoints[i] = p; 
+                //    }
+                  //  break;
+            }
+            e.Handled = true;
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -78,23 +198,47 @@ namespace Przactice_3_WinForms
             {
                 foreach (var item in listPoints) // проверяем достигли ли края
                 {
-                    if (item.X == 283 || item.X == 90) { flagXRight = !flagXRight; }
-                    if (item.Y == 260 || item.Y == 0) { flagYRight = !flagYRight; }
+                    if (item.X >= 283 || item.X <= 90) { flagXRight = !flagXRight; }
+                    if (item.Y >= 260 || item.Y <= 0) { flagYRight = !flagYRight; }
                 }
                 for (int i = 0; i < listPoints.Count(); i++) // меняем координаты
                 {
                     //listPoints[i].Y++;
                     Point p1 = listPoints[i];//почему не работает напрямую через список?
 
-                    if (flagXRight) { p1.X--; }
-                    else { p1.X++; }
-                    if (flagYRight) { p1.Y--; }
-                    else { p1.Y++; }
+                    if (flagXRight) { p1.X -= Data.speedDot; }
+                    else { p1.X += Data.speedDot; }
+                    if (flagYRight) { p1.Y -= Data.speedDot; }
+                    else { p1.Y += Data.speedDot; }
                     //if (!flagXRight) p1.X++;
 
                     //p1.Y++;
                     listPoints[i] = p1;
                 }
+                //int n = 0;
+                //int m = 0;
+                //foreach (var item in listPoints) // проверяем достигли ли края
+                //{
+                //    if (item.X > 283) { flagXRight = !flagXRight; n = item.X - 283; }
+                //    if (item.X < 90) { flagXRight = !flagXRight; n = 90 - item.X; }
+                //    if (item.Y > 260) { flagYRight = !flagYRight; m = item.Y - 260; }
+                //    if (item.Y < 0) { flagYRight = !flagYRight; m = 0 - item.Y; }
+                //}
+
+                //for (int i = 0; i < listPoints.Count(); i++) // меняем координаты
+                //{
+                //    //listPoints[i].Y++;
+                //    Point p1 = listPoints[i];//почему не работает напрямую через список?
+
+                //    if (flagXRight) { p1.X -= n; }
+                //    else { p1.X += n; }
+                //    if (flagYRight) { p1.Y -= m; }
+                //    else { p1.Y += m; }
+                //    //if (!flagXRight) p1.X++;
+
+                //    //p1.Y++;
+                //    listPoints[i] = p1;
+                //}
             }
 
           
@@ -110,10 +254,20 @@ namespace Przactice_3_WinForms
                 for (int i = 0; i < listPoints.Count(); i++)
                 {
                     Point p2 = listPoints[i];               //не работает на прямую через список
-                    if (flagsX[i]) { p2.X += arrRandX[i]; }
-                    else { p2.X -= arrRandX[i]; }
-                    if (flagsY[i]) { p2.Y += arrRandY[i]; }
-                    else { p2.Y -= arrRandY[i]; }
+                    if (flagsX[i]) {
+                        p2.X += (arrRandX[i] * Data.speedDot);
+                        if(p2.X > 283) { p2.X = 283; }
+                    }
+                    else { p2.X -= (arrRandX[i] * Data.speedDot);
+                        if (p2.X < 90) { p2.X = 90; }
+                    }
+                    if (flagsY[i]) {
+                        p2.Y += (arrRandY[i] * Data.speedDot);
+                        if(p2.Y > 260) { p2.Y = 260; }
+                    }
+                    else { p2.Y -= (arrRandY[i] * Data.speedDot);
+                        if(p2.Y < 0) { p2.Y = 0; }
+                    }
                     listPoints[i] = p2;
                 }
             }

@@ -16,6 +16,13 @@ namespace Przactice_3_WinForms
         private static bool randMove = true;
         private static int numericUP1 = 0;
         private static int numericUP2 = 0;
+        private static int speed = 1;
+
+        public static int speedDot
+        {
+            get { return speed; }
+            set { speed = value; }
+        }
 
         public static int nemricValue1
         {
