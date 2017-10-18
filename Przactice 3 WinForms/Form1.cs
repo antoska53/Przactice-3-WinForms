@@ -297,13 +297,8 @@ namespace Przactice_3_WinForms
                 var d = e.Graphics; 
                 Brush br = new SolidBrush(Data.colDot); //кисть
                 Pen pen1 = new Pen(Data.colLine, width:Data.valueLine);
-            if (bDrag)
-            {
-
-            }
-           
-            
-
+                  
+          
             if (listPoints.Count() > 0)
             {
                 Point[] arrPoint = new Point[listPoints.Count()];//напрямую через List, почемуто не рисует
@@ -318,7 +313,7 @@ namespace Przactice_3_WinForms
                 if(LineType == eLineType.Curved) {
                    //d.DrawClosedCurve(pen1, listPoints);
                     d.DrawClosedCurve(pen1, arrPoint);
-                    LineType = eLineType.None;// отключаем кривую
+                   // LineType = eLineType.None;// отключаем кривую
                     bButtonOn = false; //отключаем точки
                    
                 }
@@ -326,21 +321,21 @@ namespace Przactice_3_WinForms
                 {
                     //d.DrawPolygon(pen1, listPoint);
                     d.DrawPolygon(pen1, arrPoint);
-                    LineType = eLineType.None;
+                   // LineType = eLineType.None;
                     bButtonOn = false; //отключаем точки
                 }
                 if(LineType == eLineType.Beizers )
                 {
                     //d.DrawBeziers(pen1, listPoints);
                     d.DrawBeziers(pen1, arrPoint);
-                    LineType = eLineType.None;
+                   // LineType = eLineType.None;
                     bButtonOn = false; //отключаем точки
                 }
              
                 if(LineType == eLineType.Filled)
                 {
                     d.FillClosedCurve(br, arrPoint);
-                    LineType = eLineType.None;
+                   // LineType = eLineType.None;
                     bButtonOn = false; //отключаем точки
                 }
                
